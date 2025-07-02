@@ -1,0 +1,24 @@
+/* 自定义Tailwind配置 */
+@layer utilities {
+    .content-auto {
+        content-visibility: auto;
+    }
+    .float-heart {
+        animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+    }
+}
+
+/* 颜色和字体配置 */
+:root {
+    --gold: #FFD700;
+    --cream: #FFF8E1;
+    --orange: #FFA000;
+}
+
+body {
+    font-family: "Comic Sans MS", Arial, sans-serif;
+}
