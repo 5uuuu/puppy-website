@@ -4,38 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小狗表白</title>
+    <!-- 引入Tailwind CSS（CDN加速，无需本地文件） -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标（CDN） -->
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 本地样式（若有，需和index.html同目录） -->
+    <link rel="stylesheet" href="style.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FFD700',
-                        secondary: '#FFF8E1',
-                        accent: '#FFA000',
+                        primary: '#FFD700',   // 主色：金色
+                        secondary: '#FFF8E1', // 背景：奶油白
+                        accent: '#FFA000',    // 强调色：橙色
                     },
                     fontFamily: {
-                        cute: ['"Comic Sans MS"', '"Marker Felt"', 'Arial', 'sans-serif'],
+                        cute: ['"Comic Sans MS"', 'Arial', 'sans-serif'], // 可爱字体
                     },
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .float-heart {
-                animation: float 3s ease-in-out infinite;
-            }
-            @keyframes float {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-15px); }
-            }
+        /* 浮动爱心动画 */
+        .float-heart {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-secondary to-amber-100 flex items-center justify-center p-4">
-    <!-- 装饰元素 -->
+    <!-- 浮动爱心装饰（增强氛围） -->
     <div class="absolute top-1/4 left-1/5 text-4xl text-primary opacity-80 float-heart">
         <i class="fa fa-heart"></i>
     </div>
@@ -48,20 +51,22 @@
         <h1 class="text-2xl sm:text-3xl font-cute font-bold text-primary text-center mb-6">
             愿意做我的小狗吗？
         </h1>
-
+        
         <div class="relative overflow-hidden rounded-xl mb-8 shadow-lg">
-            <!-- 修改这里：通过 /templates/ 路由访问图片 -->
-            <img src="{{ url_for('serve_template_file', filename='小狗.jpg') }}"
-                 alt="可爱小狗"
-                 class="w-full h-auto object-cover rounded-xl">
+            <!-- 图片路径：
+                 - 若图片和index.html同目录 → src="小狗.jpg"
+                 - 若图片在images文件夹 → src="images/小狗.jpg" 
+                 （根据实际位置修改！） -->
+            <img src="小狗.jpg" alt="可爱小狗" class="w-full h-auto object-cover rounded-xl">
+            <!-- 图片加载失败提示 -->
             <div id="imageError" class="hidden absolute inset-0 bg-gray-100 flex items-center justify-center text-gray-500">
                 <div class="text-center p-4">
                     <i class="fa fa-picture-o text-4xl mb-2"></i>
-                    <p>图片加载失败，请检查路径~</p>
+                    <p>图片迷路了，请检查路径~</p>
                 </div>
             </div>
         </div>
-
+        
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <button id="yesBtn" class="px-8 py-4 bg-primary hover:bg-amber-500 text-white font-bold rounded-full shadow-lg transition-all">
                 <i class="fa fa-paw mr-2"></i>我愿意
@@ -72,7 +77,7 @@
         </div>
     </div>
 
-    <!-- 恭喜弹窗 -->
+    <!-- 恭喜弹窗（默认隐藏） -->
     <div id="congratsModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-2xl p-8 max-w-md text-center transform transition-all duration-500 scale-100">
             <div class="text-6xl text-primary mb-4">
@@ -86,41 +91,7 @@
         </div>
     </div>
 
-    <script>
-        // 图片加载失败处理
-        const img = document.querySelector('img');
-        const errorDiv = document.getElementById('imageError');
-        img.addEventListener('error', () => {
-            img.classList.add('hidden');
-            errorDiv.classList.remove('hidden');
-        });
-
-        // 按钮交互
-        const yesBtn = document.getElementById('yesBtn');
-        const noBtn = document.getElementById('noBtn');
-        const modal = document.getElementById('congratsModal');
-        const closeBtn = document.getElementById('closeModal');
-
-        // 「考虑一下」点击：强迫选择「愿意」
-        noBtn.addEventListener('click', () => {
-            yesBtn.classList.add('scale-125', 'bg-accent', 'shadow-xl');
-            noBtn.classList.add('scale-75', 'opacity-50', 'cursor-not-allowed');
-            noBtn.disabled = true;
-            yesBtn.innerHTML = '<i class="fa fa-heart mr-2"></i>我愿意';
-        });
-
-        // 「愿意」点击：显示弹窗
-        yesBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.querySelector('div').classList.add('scale-110'), 10);
-        });
-
-        // 关闭弹窗
-        closeBtn.addEventListener('click', () => {
-            modal.querySelector('div').classList.remove('scale-110');
-            modal.querySelector('div').classList.add('scale-90', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
-        });
-    </script>
+    <!-- 本地交互逻辑（若有，需和index.html同目录） -->
+    <script src="script.js"></script>
 </body>
 </html>
