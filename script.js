@@ -14,7 +14,7 @@ const closeBtn = document.getElementById('closeModal');
 
 // 「考虑一下」点击：强迫选择「愿意」
 noBtn.addEventListener('click', () => {
-    yesBtn.classList.add('scale-125', 'bg-orange', 'shadow-xl');
+    yesBtn.classList.add('scale-125', 'bg-accent', 'shadow-xl');
     noBtn.classList.add('scale-75', 'opacity-50', 'cursor-not-allowed');
     noBtn.disabled = true;
     yesBtn.innerHTML = '<i class="fa fa-heart mr-2"></i>我愿意';
